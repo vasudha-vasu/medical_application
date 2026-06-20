@@ -416,7 +416,7 @@ const About = () => {
                   <div>
                     <h4 className="font-bold text-lg text-darktext">Clinic Address</h4>
                     <p className="text-gray-600 leading-relaxed mt-1">
-                      Chitrel-Pullampeta Rd,<br/>
+                      Chitvel - Pullampeta Rd,<br/>
                       Pullampeta, Andhra Pradesh<br/>
                       PIN: 516107
                     </p>
@@ -430,7 +430,7 @@ const About = () => {
                   <div>
                     <h4 className="font-bold text-lg text-darktext">Contact Info</h4>
                     <p className="text-gray-600 leading-relaxed mt-1">+91 97055 06407</p>
-                    <p className="text-gray-600 leading-relaxed">info@drheliosrehab.com</p>
+                    <p className="text-gray-600 leading-relaxed">drheliosonr@gmail.com</p>
                   </div>
                 </div>
               </div>

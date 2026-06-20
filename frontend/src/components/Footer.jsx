@@ -42,7 +42,7 @@ const Footer = () => {
           <ul className="space-y-4">
             <li className="flex items-start gap-3">
               <MapPin className="text-primary shrink-0 mt-1" size={20} />
-              <span className="text-gray-400">Chitrel-Pullampeta Rd, Pullampeta, Andhra Pradesh, 516107</span>
+              <span className="text-gray-400">Chitvel - Pullampeta Rd, Pullampeta, Andhra Pradesh, 516107</span>
             </li>
             <li className="flex items-center gap-3">
               <Phone className="text-primary shrink-0" size={20} />
@@ -50,7 +50,7 @@ const Footer = () => {
             </li>
             <li className="flex items-center gap-3">
               <Mail className="text-primary shrink-0" size={20} />
-              <span className="text-gray-400">contact@drhelios.com</span>
+              <span className="text-gray-400">drheliosonr@gmail.com</span>
             </li>
           </ul>
         </div>
