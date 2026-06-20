@@ -1,0 +1,115 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  role          String    @default("PATIENT") // ADMIN, THERAPIST, PATIENT
+  phone         String?
+  
+  // Relations
+  patientAppointments Appointment[] @relation("PatientAppointments")
+  therapistProfile    TherapistProfile?
+  reviews             Review[]
+  medicalRecords      MedicalRecord[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TherapistProfile {
+  id             String  @id @default(cuid())
+  userId         String  @unique
+  user           User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  specialization String
+  experience     Int     // in years
+  bio            String?
+  rating         Float   @default(0.0)
+
+  // Relations
+  appointments   Appointment[]
+  services       Service[]     @relation("TherapistServices")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Service {
+  id                 String  @id @default(cuid())
+  title              String
+  slug               String  @unique
+  shortDescription   String
+  detailedDescription String?
+  duration           Int     // in minutes
+  price              Float
+  status             String  @default("ACTIVE") // ACTIVE, INACTIVE
+  imageUrl           String?
+
+  // Relations
+  therapists         TherapistProfile[] @relation("TherapistServices")
+  appointments       Appointment[]
+  reviews            Review[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Appointment {
+  id              String   @id @default(cuid())
+  patientId       String
+  patient         User     @relation("PatientAppointments", fields: [patientId], references: [id])
+  therapistId     String?
+  therapist       TherapistProfile? @relation(fields: [therapistId], references: [id])
+  serviceId       String
+  service         Service  @relation(fields: [serviceId], references: [id])
+  
+  appointmentDate DateTime
+  status          String   @default("PENDING") // PENDING, CONFIRMED, COMPLETED, CANCELLED
+  type            String   @default("CLINIC")  // CLINIC, HOME_VISIT, ONLINE
+  
+  // For home visits
+  address         String?
+  city            String?
+  pincode         String?
+  
+  // Payment
+  paymentStatus   String   @default("PENDING") // PENDING, PAID, REFUNDED
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Review {
+  id          String   @id @default(cuid())
+  rating      Int
+  comment     String?
+  
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  serviceId   String
+  service     Service  @relation(fields: [serviceId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+model MedicalRecord {
+  id          String   @id @default(cuid())
+  patientId   String
+  patient     User     @relation(fields: [patientId], references: [id])
+  
+  painScale   Int?     // 1-10
+  painAreas   String?  // JSON array or comma separated
+  notes       String?
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
