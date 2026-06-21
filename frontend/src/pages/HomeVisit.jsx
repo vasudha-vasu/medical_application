@@ -23,7 +23,8 @@ const HomeVisit = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const response = await fetch('/api/home-visits', {
+      const API_URL = import.meta.env.VITE_API_URL || '';
+      const response = await fetch(`${API_URL}/api/home-visits`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

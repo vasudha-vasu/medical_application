@@ -24,9 +24,10 @@ const AdminDashboard = () => {
         'Content-Type': 'application/json'
       };
 
+      const API_URL = import.meta.env.VITE_API_URL || '';
       const [apptRes, hvRes] = await Promise.all([
-        fetch('/api/appointments', { headers }),
-        fetch('/api/home-visits', { headers })
+        fetch(`${API_URL}/api/appointments`, { headers }),
+        fetch(`${API_URL}/api/home-visits`, { headers })
       ]);
 
       if (apptRes.ok) {
@@ -52,7 +53,8 @@ const AdminDashboard = () => {
   const updateStatus = async (type, id, status) => {
     try {
       const endpoint = type === 'appointment' ? 'appointments' : 'home-visits';
-      const response = await fetch(`/api/${endpoint}/${id}/status`, {
+      const API_URL = import.meta.env.VITE_API_URL || '';
+      const response = await fetch(`${API_URL}/api/${endpoint}/${id}/status`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${user.token}`,
@@ -73,7 +75,8 @@ const AdminDashboard = () => {
     
     try {
       const endpoint = type === 'appointment' ? 'appointments' : 'home-visits';
-      const response = await fetch(`/api/${endpoint}/${id}`, {
+      const API_URL = import.meta.env.VITE_API_URL || '';
+      const response = await fetch(`${API_URL}/api/${endpoint}/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${user.token}`
