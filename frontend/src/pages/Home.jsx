@@ -29,6 +29,10 @@ const Home = () => {
               Book appointments, request home visits, and receive personalized orthopedic and neurological rehabilitation from experienced professionals.
             </p>
             
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-12">
+              <Link to="/appointment" className="btn-primary w-full sm:w-auto text-center">Book Appointment</Link>
+              <Link to="/home-visit" className="btn-secondary w-full sm:w-auto text-center">Request Home Visit</Link>
+            </div>
 
             {/* Doctor Info Card */}
             <motion.div 
