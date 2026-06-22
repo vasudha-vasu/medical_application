@@ -15,7 +15,14 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "https://medical-application-vh5s.vercel.app"
+  ],
+  credentials: true
+}));
 app.use(helmet());
 app.use(morgan('dev'));
 
